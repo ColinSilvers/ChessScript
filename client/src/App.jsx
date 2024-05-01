@@ -1,14 +1,11 @@
+import { Container } from "@mui/material";
 import Game from "./components/Game";
 
-const App = () => {
+export default function App() {
   
   return(
-    <>
-      <div>
-        <Game />
-      </div>
-    </>
+    <Container>
+      <Game />
+    </Container>
   )
 }
-
-export default App;

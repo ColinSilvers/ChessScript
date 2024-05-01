@@ -9,8 +9,48 @@ const Game = ({players, room, orientation, cleanup}) => {
   const [fen, setFen] = useState(chess.fen());
   const [over, setOver] = useState('');
 
+
+  const makeAMove = useCallback((move) => {
+    try{
+      const result = chess.move(move);
+      setFen(chess.fen());
+
+      console.log("game over, checkmate", chess.isGameOver(), chess.isCheckmate());
+
+      if(chess.isGameOver()) {
+        if(chess.isCheckmate()) {
+          setOver(
+            `Checkmate! ${chess.turn() === "w" ? "black" : "white"} wins!`
+          );
+        }
+        else if(chess.isDraw()) {
+          setOver("Draw");
+        } else {
+          setOver("Game over");
+        }
+      }
+
+      return result;
+    } catch (e) {
+      
+      return null;
+    }
+  }, 
+    [chess]
+);
+
   function onDrop() {
-    //TODO
+    const moveData = {
+      from: sourceSquare,
+      to: targetSquare,
+      color: chess.turn(),
+    };
+
+    const move = makeAMove(moveData);
+
+    if(move === null) return false;
+
+    return true;
   }
 
   return(
