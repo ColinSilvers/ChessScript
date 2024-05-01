@@ -70,4 +70,4 @@ const Game = ({players, room, orientation, cleanup}) => {
   );
 };
 
-export default Game
+export default Game;
