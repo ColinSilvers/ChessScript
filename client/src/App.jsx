@@ -1,10 +1,11 @@
-const App = () => {
+import { Container } from "@mui/material";
+import Game from "./components/Game";
+
+export default function App() {
   
   return(
-    <>
-      <div>Hello World!</div>
-    </>
+    <Container>
+      <Game />
+    </Container>
   )
 }
-
-export default App;
