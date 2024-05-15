@@ -39,7 +39,7 @@ const Game = ({players, room, orientation, cleanup}) => {
     [chess]
 );
 
-  function onDrop() {
+  function onDrop(sourceSquare, targetSquare) {
     const moveData = {
       from: sourceSquare,
       to: targetSquare,
@@ -47,6 +47,7 @@ const Game = ({players, room, orientation, cleanup}) => {
     };
 
     const move = makeAMove(moveData);
+    console.log(moveData);
 
     if(move === null) return false;
 
