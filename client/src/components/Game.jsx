@@ -15,12 +15,13 @@ const Game = ({players, room, orientation, cleanup}) => {
       const result = chess.move(move);
       setFen(chess.fen());
 
-      console.log("game over, checkmate", chess.isGameOver(), chess.isCheckmate());
+      console.log("Game over, Checkmate", chess.isGameOver(), chess.isCheckmate());
 
       if(chess.isGameOver()) {
+        console.log(chess.history());
         if(chess.isCheckmate()) {
           setOver(
-            `Checkmate! ${chess.turn() === "w" ? "black" : "white"} wins!`
+            `Checkmate! ${chess.turn() === "w" ? "Black" : "White"} wins!`
           );
         }
         else if(chess.isDraw()) {
