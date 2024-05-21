@@ -1,7 +1,7 @@
 import { Container, TextField } from "@mui/material";
 import socket from './socket'
 import Game from "./components/Game";
-import React from "react";
+import { useState } from "react";
 import CustomDialog from "./components/CustomDialog";
 
 export default function App() {
