@@ -18,6 +18,12 @@ io.on('connection', (socket) => {
   // socket refers to the client socket that just got connected.
   // each socket is assigned an id
   console.log(socket.id, 'connected');
+  // listen to username event
+
+  socket.on('username', (username) => {
+    console.log('username:', username);
+    socket.data.username = username;
+  });
 });
 
 server.listen(port, () => {

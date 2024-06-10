@@ -14,13 +14,15 @@ const Game = ({players, room, orientation, cleanup}) => {
     try{
       const result = chess.move(move);
       setFen(chess.fen());
+     
 
-      console.log("game over, checkmate", chess.isGameOver(), chess.isCheckmate());
+      console.log("Game over, Checkmate", chess.isGameOver(), chess.isCheckmate());
 
       if(chess.isGameOver()) {
+        console.log(chess.history());
         if(chess.isCheckmate()) {
           setOver(
-            `Checkmate! ${chess.turn() === "w" ? "black" : "white"} wins!`
+            `Checkmate! ${chess.turn() === "w" ? "Black" : "White"} wins!`
           );
         }
         else if(chess.isDraw()) {
@@ -56,8 +58,8 @@ const Game = ({players, room, orientation, cleanup}) => {
 
   return(
     <>
-      <div className="board">
-        <Chessboard position={fen} onPieceDrop={onDrop} />
+      <div class="board">
+        <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} />
       </div>
       <CustomDialog
         open={Boolean(over)}
