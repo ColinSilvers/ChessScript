@@ -1,0 +1,17 @@
+body{}
+
+.chessboard {
+  display: flex;
+  justify-self: left;
+  background-color: black;
+}
+
+.moves-container {
+  display: flex;
+  margin-left: auto;
+  justify-content: space-between;
+}
+
+#gtx-trans 
+{ display:none ! important}
+

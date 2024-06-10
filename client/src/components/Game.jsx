@@ -14,6 +14,7 @@ const Game = ({players, room, orientation, cleanup}) => {
     try{
       const result = chess.move(move);
       setFen(chess.fen());
+     
 
       console.log("Game over, Checkmate", chess.isGameOver(), chess.isCheckmate());
 
@@ -57,8 +58,8 @@ const Game = ({players, room, orientation, cleanup}) => {
 
   return(
     <>
-      <div className="board">
-        <Chessboard position={fen} onPieceDrop={onDrop} />
+      <div class="board">
+        <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} />
       </div>
       <CustomDialog
         open={Boolean(over)}
