@@ -1,19 +1,36 @@
 body{}
 
-.chessboard {
-  display: flex;
-  justify-self: left;
-  background-color: black;
-}
-
-.moves-container {
-  display: flex;
-}
-
-#gtx-trans 
-{ display:none ! important}
 
 .board{
   display: flex;
   flex-direction: row;
+} 
+
+.some-page-wrapper {
+  margin: 15px;
+  background-color: red;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.white-column{
+  height: 500px;
+  width: 60px;
+}
+
+.black-columb{
+  height: 500px;
+  width: 40px;
 }
