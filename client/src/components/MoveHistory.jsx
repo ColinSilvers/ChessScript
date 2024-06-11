@@ -4,13 +4,12 @@ import * as react from 'react';
 import { blue } from "@mui/material/colors";
 
 
-const MovesHistory = () => {
+const MovesHistory = ({moves}) => {
+
 
   return (
-    <div class="moves-container">
-    
-    <p>This is the moves history container.</p>
-    
+    <div className="moves-container">
+      {moves}
     </div>
   )
 

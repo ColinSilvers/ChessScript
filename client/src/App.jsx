@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <>
-      <Container>
+      <Container className="container">
         <CustomDialog
           open={!usernameSubmitted} // leave open if username has not been selected
           title="Pick a username" // Title of dialog
@@ -39,11 +39,7 @@ export default function App() {
           />
         </CustomDialog>
         <Game />
-      </Container>
-
-      <Container>
-        <MovesHistory />
-      </Container>
+      </Container>  
     </>
   );
 }

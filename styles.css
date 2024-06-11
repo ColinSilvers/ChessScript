@@ -8,10 +8,12 @@ body{}
 
 .moves-container {
   display: flex;
-  margin-left: auto;
-  justify-content: space-between;
 }
 
 #gtx-trans 
 { display:none ! important}
 
+.board{
+  display: flex;
+  flex-direction: row;
+}
