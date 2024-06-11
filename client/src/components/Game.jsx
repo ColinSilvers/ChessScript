@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import CustomDialog from "./CustomDialog";
+import MovesHistory from "./MoveHistory";
 
 const Game = ({players, room, orientation, cleanup}) => {
   
@@ -50,6 +51,7 @@ const Game = ({players, room, orientation, cleanup}) => {
 
     const move = makeAMove(moveData);
     console.log(moveData);
+    console.log(chess.history());
 
     if(move === null) return false;
 
@@ -60,6 +62,7 @@ const Game = ({players, room, orientation, cleanup}) => {
     <>
       <div class="board">
         <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} />
+        <MovesHistory moves={chess.history()}/>
       </div>
       <CustomDialog
         open={Boolean(over)}
