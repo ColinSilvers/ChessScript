@@ -1,8 +1,9 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
-import { Chess } from "chess.js";
+import { Chess, DEFAULT_POSITION } from "chess.js";
 import CustomDialog from "./CustomDialog";
 import MovesHistory from "./MoveHistory";
+import { Button } from "@mui/material";
 
 const Game = ({players, room, orientation, cleanup}) => {
   
@@ -58,11 +59,26 @@ const Game = ({players, room, orientation, cleanup}) => {
     return true;
   }
 
+  function resetBoard() {
+    chess.reset();
+    setFen(DEFAULT_POSITION);
+  }
+
+  function undoMove() {
+    let moveToUndo = chess.undo();
+    setFen(moveToUndo.before);
+  }
+
+
   return(
     <>
       <div class="board">
         <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} />
         <MovesHistory moves={chess.history()}/>
+      </div>
+      <div>
+      <Button variant="contained" onClick={resetBoard}>Reset</Button>
+      <Button variant="contained" onClick={undoMove}>Undo</Button>
       </div>
       <CustomDialog
         open={Boolean(over)}
