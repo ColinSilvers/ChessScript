@@ -65,7 +65,7 @@ const Game = ({players, room, orientation, cleanup}) => {
   }
 
   function undoMove() {
-    let moveToUndo = chess.undo();
+    const moveToUndo = chess.undo();
     setFen(moveToUndo.before);
   }
 
@@ -74,7 +74,9 @@ const Game = ({players, room, orientation, cleanup}) => {
     <>
       <div class="board">
         <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} />
-        <MovesHistory moves={chess.history()}/>
+        <div class="moves-container">
+          <MovesHistory moves={chess.history()} />
+        </div>
       </div>
       <div>
       <Button variant="contained" onClick={resetBoard}>Reset</Button>

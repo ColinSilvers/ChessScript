@@ -1,34 +1,30 @@
+body {
+  background-color: rgba(9, 83, 71, 0.548);
+}
 
 .board{
   display: flex;
   flex-direction: row;
 } 
 
-.some-page-wrapper {
-  margin: 15px;
-  background-color: red;
+.moves-container{
+  display: flex;
+  flex-direction: column;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.move-row{
+  box-sizing: border-box;
+  font-weight: 600;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  padding: 0 15px 0 15px;
+  position: relative;
   width: 100%;
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-}
-
-.white-column{
-  height: 500px;
-  width: 60px;
-}
-
-.black-columb{
-  height: 500px;
-  width: 40px;
+.move{
+  margin-right: 100px;
+  white-space: nowrap;
+  color: rgb(255, 255, 255);
 }

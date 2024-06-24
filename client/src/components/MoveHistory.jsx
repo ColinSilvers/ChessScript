@@ -5,54 +5,55 @@ import { useEffect, useState } from "react";
 
 const MovesHistory = ({ moves }) => {
   const movesCopy = [...moves];
-  const [whiteMoves, setWhiteMoves] = useState([]);
-  const [blackMoves, setBlackMoves] = useState([]);
+  const [whiteMoves, setWhiteMoves] = useState([movesCopy]);
+  const [blackMoves, setBlackMoves] = useState([movesCopy]);
 
   useEffect(() => {
     function getWhiteMoves() {
       let counter = 1;
-      const whiteMoves = [];
+      const whiteMovesCopy = [];
       for (let i = 0; i < movesCopy.length; i++) {
         if (i % 2 === 0) {
-          whiteMoves.push(`${counter++}.` + movesCopy[i]);
+          whiteMovesCopy.push(`${counter++}.` + movesCopy[i]);
         }
       }
-      return whiteMoves.join("\r\n");
+      return whiteMovesCopy;
     }
 
     function getBlackMoves() {
       let counter = 1;
-      const blackMoves = [];
+      const blackMovesCopy = [];
       for (let i = 0; i < movesCopy.length; i++) {
         if (i % 2 !== 0) {
-          blackMoves.push(`${counter++}.` + movesCopy[i]);
+          blackMovesCopy.push(`${counter++}.` + movesCopy[i]);
         }
       }
 
-      return blackMoves.join("\r\n");
+      return blackMovesCopy;
     }
      setWhiteMoves(getWhiteMoves());
      setBlackMoves(getBlackMoves());
-  }, [movesCopy]);
+  }, [moves]);
 
 
   return (
-    <>
+    <div>
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={10}
-        useFlexGap
+        useFlexGap flexWrap="no-wrap"
       >
-        <Typography variant="h4" align="justify">
-          {whiteMoves}
+        <Typography variant="h4" component="h2" align="justify">
+          {whiteMoves.map(move => <div class="move">{move}</div>)}
         </Typography>
-        <Typography variant="h4" align="justify">
-          {blackMoves}
+        <Typography variant="h4" component="h2" align="justify">
+          {blackMoves.map(move => <div class="move">{move}</div>)}
         </Typography>
       </Stack>
-    </>
+    </div>
   );
 };
 
 export default MovesHistory;
+  
