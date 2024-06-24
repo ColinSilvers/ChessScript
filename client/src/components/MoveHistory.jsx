@@ -37,7 +37,7 @@ const MovesHistory = ({ moves }) => {
 
 
   return (
-    <div>
+    <div class="moves-container">
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}

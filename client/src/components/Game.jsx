@@ -1,9 +1,9 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
-import { Chess, DEFAULT_POSITION } from "chess.js";
+import { Chess } from "chess.js";
 import CustomDialog from "./CustomDialog";
 import MovesHistory from "./MoveHistory";
-import { Button } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 
 const Game = ({players, room, orientation, cleanup}) => {
   
@@ -61,12 +61,16 @@ const Game = ({players, room, orientation, cleanup}) => {
 
   function resetBoard() {
     chess.reset();
-    setFen(DEFAULT_POSITION);
+    setFen(Chess.DEFAULT_POSITION);
   }
 
   function undoMove() {
     const moveToUndo = chess.undo();
     setFen(moveToUndo.before);
+  }
+
+  function sayHelloWorld() {
+    alert('Hi Julie');
   }
 
 
@@ -79,8 +83,12 @@ const Game = ({players, room, orientation, cleanup}) => {
         </div>
       </div>
       <div>
-      <Button variant="contained" onClick={resetBoard}>Reset</Button>
-      <Button variant="contained" onClick={undoMove}>Undo</Button>
+      <ButtonGroup size="large" aria-label="Large button group">
+        <Button variant="contained" onClick={resetBoard}>Reset</Button>
+        <Button variant="contained" onClick={undoMove}>Undo</Button>
+        <Button variant="contained" onClick={sayHelloWorld}>Import FEN</Button>
+
+      </ButtonGroup>
       </div>
       <CustomDialog
         open={Boolean(over)}
