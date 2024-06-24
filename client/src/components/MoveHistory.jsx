@@ -45,10 +45,10 @@ const MovesHistory = ({ moves }) => {
         useFlexGap flexWrap="no-wrap"
       >
         <Typography variant="h4" component="h2" align="justify">
-          {whiteMoves.map(move => <div class="move">{move}</div>)}
+          {whiteMoves.map(move => <div class="move" key={move}>{move}</div>)}
         </Typography>
         <Typography variant="h4" component="h2" align="justify">
-          {blackMoves.map(move => <div class="move">{move}</div>)}
+          {blackMoves.map(move => <div class="move" key={move}>{move}</div>)}
         </Typography>
       </Stack>
     </div>
