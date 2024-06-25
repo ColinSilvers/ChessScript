@@ -29,10 +29,6 @@ const FENModal = ({ sendDataToParent }) => {
   const [open, setOpen] = useState(false);
   const [fenString, setFenString] = useState('');
 
-  function handleClick() {
-    sendDataToParent(fenString);
-  }
-
   return (
     <div>
       <Button

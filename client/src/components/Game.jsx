@@ -64,17 +64,39 @@ const Game = ({ players, room, orientation, cleanup }) => {
   function resetBoard() {
     chess.reset();
     setFen(Chess.DEFAULT_POSITION);
+    chess.load(fen);
   }
 
   function undoMove() {
     const moveToUndo = chess.undo();
     setFen(moveToUndo.before);
-  } 
-
-  function handleDataFromChild(data) {
-    setFen(data);
-    console.log(fen);
+    chess.load(fen);
   }
+
+  const handleDataFromChild = useCallback(
+    (data) => {
+      try {
+        setDataFromChild(data);
+        chess.load(dataFromChild);
+        setFen(chess.fen());
+        console.log(chess.fen());
+      } catch (e) {
+        console.log(e);
+      }
+      if (chess.isGameOver()) {
+        if (chess.isCheckmate()) {
+          setOver(
+            `Checkmate! ${chess.turn() === "w" ? "Black" : "White"} wins!`
+          );
+        } else if (chess.isDraw()) {
+          setOver("Draw");
+        } else {
+          setOver("Game over");
+        }
+      }
+    },
+    [dataFromChild]
+  );
 
   return (
     <>
@@ -92,7 +114,7 @@ const Game = ({ players, room, orientation, cleanup }) => {
           <Button variant="contained" onClick={undoMove}>
             Undo
           </Button>
-          <FENModal sendDataToParent={handleDataFromChild}/>
+          <FENModal sendDataToParent={handleDataFromChild} />
         </ButtonGroup>
       </div>
       <CustomDialog
