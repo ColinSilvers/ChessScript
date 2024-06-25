@@ -10,7 +10,6 @@ const Game = ({ players, room, orientation, cleanup }) => {
   const chess = useMemo(() => new Chess(), []);
   const [fen, setFen] = useState(Chess.DEFAULT_POSITION);
   const [over, setOver] = useState("");
-  const [dataFromChild, setDataFromChild] = useState("");
 
   const makeAMove = useCallback(
     (move) => {
@@ -71,11 +70,15 @@ const Game = ({ players, room, orientation, cleanup }) => {
     setFen(moveToUndo.before);
   }
 
-  const handleDataFromChild = useCallback((data) => {
+  const handleDataFromChild = ((data) => {
     try {
-      console.log(data);
-      setDataFromChild(data);
-      setFen(dataFromChild);
+      let res = validateFen(data);
+      if(res.ok) {
+        setFen(data);
+      }
+      else {
+       alert(res.error);
+      } 
     } catch (e) {
       console.log(e);
     }
@@ -88,7 +91,7 @@ const Game = ({ players, room, orientation, cleanup }) => {
         setOver("Game over");
       }
     }
-  }, []);
+  });
 
   return (
     <>
@@ -106,7 +109,7 @@ const Game = ({ players, room, orientation, cleanup }) => {
           <Button variant="contained" onClick={undoMove}>
             Undo
           </Button>
-          <FENModal sendDataToParent={handleDataFromChild} />
+          <FENModal dataFromChild={handleDataFromChild} />
         </ButtonGroup>
       </div>
       <CustomDialog

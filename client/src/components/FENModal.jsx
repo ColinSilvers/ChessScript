@@ -25,9 +25,8 @@ const style = {
   p: 4,
 };
 
-const FENModal = ({ sendDataToParent }) => {
+const FENModal = ({ dataFromChild }) => {
   const [open, setOpen] = useState(false);
-  const [fenString, setFenString] = useState('');
 
   return (
     <div>
@@ -49,9 +48,8 @@ const FENModal = ({ sendDataToParent }) => {
           <DialogTitle>Import FEN String</DialogTitle>
           <form onSubmit={(event) => {
             event.preventDefault();
-            setFenString(event.target[0].value);
-            console.log(event.target[0].value);
-            sendDataToParent(fenString);
+            dataFromChild(event.target[0].value);
+            console.log(event.target[0].value); 
             setOpen(false);
           }}>
             <FormControl>
