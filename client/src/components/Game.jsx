@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { Chessboard } from "react-chessboard";
-import { Chess } from "chess.js";
+import { Chess, validateFen } from "chess.js";
 import CustomDialog from "./CustomDialog";
 import MovesHistory from "./MoveHistory";
 import FENModal from "./FENModal";
@@ -8,7 +8,7 @@ import { Button, ButtonGroup } from "@mui/material";
 
 const Game = ({ players, room, orientation, cleanup }) => {
   const chess = useMemo(() => new Chess(), []);
-  const [fen, setFen] = useState(chess.fen());
+  const [fen, setFen] = useState(Chess.DEFAULT_POSITION);
   const [over, setOver] = useState("");
   const [dataFromChild, setDataFromChild] = useState("");
 
@@ -64,39 +64,31 @@ const Game = ({ players, room, orientation, cleanup }) => {
   function resetBoard() {
     chess.reset();
     setFen(Chess.DEFAULT_POSITION);
-    chess.load(fen);
   }
 
   function undoMove() {
     const moveToUndo = chess.undo();
     setFen(moveToUndo.before);
-    chess.load(fen);
   }
 
-  const handleDataFromChild = useCallback(
-    (data) => {
-      try {
-        setDataFromChild(data);
-        chess.load(dataFromChild);
-        setFen(chess.fen());
-        console.log(chess.fen());
-      } catch (e) {
-        console.log(e);
+  const handleDataFromChild = useCallback((data) => {
+    try {
+      console.log(data);
+      setDataFromChild(data);
+      setFen(dataFromChild);
+    } catch (e) {
+      console.log(e);
+    }
+    if (chess.isGameOver()) {
+      if (chess.isCheckmate()) {
+        setOver(`Checkmate! ${chess.turn() === "w" ? "Black" : "White"} wins!`);
+      } else if (chess.isDraw()) {
+        setOver("Draw");
+      } else {
+        setOver("Game over");
       }
-      if (chess.isGameOver()) {
-        if (chess.isCheckmate()) {
-          setOver(
-            `Checkmate! ${chess.turn() === "w" ? "Black" : "White"} wins!`
-          );
-        } else if (chess.isDraw()) {
-          setOver("Draw");
-        } else {
-          setOver("Game over");
-        }
-      }
-    },
-    [dataFromChild]
-  );
+    }
+  }, []);
 
   return (
     <>
