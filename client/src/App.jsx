@@ -1,7 +1,6 @@
 import { Container, TextField } from "@mui/material";
 import socket from "./socket";
 import Game from "./components/Game";
-import MovesHistory from "./components/MoveHistory";
 import { useState } from "react";
 import CustomDialog from "./components/CustomDialog";
 

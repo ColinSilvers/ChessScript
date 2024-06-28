@@ -66,19 +66,22 @@ const Game = ({ players, room, orientation, cleanup }) => {
   }
 
   function undoMove() {
-    const moveToUndo = chess.undo();
-    setFen(moveToUndo.before);
+    try {
+      const moveToUndo = chess.undo();
+      setFen(moveToUndo.before);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  const handleDataFromChild = ((data) => {
+  const handleDataFromChild = (data) => {
     try {
       let res = validateFen(data);
-      if(res.ok) {
+      if (res.ok) {
         setFen(data);
+      } else {
+        alert(res.error);
       }
-      else {
-       alert(res.error);
-      } 
     } catch (e) {
       console.log(e);
     }
@@ -91,7 +94,7 @@ const Game = ({ players, room, orientation, cleanup }) => {
         setOver("Game over");
       }
     }
-  });
+  };
 
   return (
     <>
