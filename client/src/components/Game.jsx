@@ -4,6 +4,7 @@ import { Chess, validateFen } from "chess.js";
 import CustomDialog from "./CustomDialog";
 import MovesHistory from "./MoveHistory";
 import FENModal from "./FENModal";
+import socket from "../socket";
 import { Button, ButtonGroup } from "@mui/material";
 
 const Game = ({ players, room, orientation, cleanup }) => {
@@ -45,6 +46,11 @@ const Game = ({ players, room, orientation, cleanup }) => {
   );
 
   function onDrop(sourceSquare, targetSquare) {
+    // orientation is either 'white' or 'black'. game.turn() returns 'w' or 'b'
+    if (chess.turn() !== orientation[0]) return false; // <- 1 prohibit player from moving piece of other player
+
+    if (players.length < 2) return false; // <- 2 disallow a move if the opponent has not joined
+    
     const moveData = {
       from: sourceSquare,
       to: targetSquare,
@@ -56,6 +62,11 @@ const Game = ({ players, room, orientation, cleanup }) => {
     console.log(chess.history());
 
     if (move === null) return false;
+
+    socket.emit("move", { // <- 3 emit a move event.
+      move,
+      room,
+    });
 
     return true;
   }
