@@ -83,6 +83,14 @@ const Game = ({ players, room, orientation, cleanup }) => {
     });
   }, []);
 
+  useEffect(() => {
+    socket.on('closeRoom', ({ roomId }) => {
+      if (roomId === room) {
+        cleanup();
+      }
+    });
+  }, [room, cleanup]);
+
   function resetBoard() {
     chess.reset();
     setFen(Chess.DEFAULT_POSITION);
@@ -143,6 +151,8 @@ const Game = ({ players, room, orientation, cleanup }) => {
         title={over}
         contentText={over}
         handleContinue={() => {
+          socket.emit("closeRoom", { roomId: room });
+          cleanup();
           setOver("");
         }}
       />
