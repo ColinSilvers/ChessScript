@@ -1,7 +1,7 @@
 import { Button, Stack, TextField } from "@mui/material";
 import { useState } from "react";
-import CustomDialog from "./components/CustomDialog";
-import socket from "./socket";
+import CustomDialog from "./CustomDialog";
+import socket from "../socket";
 
 export default function InitGame({ setRoom, setOrientation, setPlayers }) {
   const [roomDialogOpen, setRoomDialogOpen] = useState(false);
