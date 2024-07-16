@@ -97,6 +97,24 @@ io.on('connection', (socket) => {
     // emit to all sockets in the room except the emitting socket.
     socket.to(data.room).emit('move', data.move);
   });
+
+  socket.on("disconnect", () => {
+    const gameRooms = Array.from(rooms.values()); // <- 1
+
+    gameRooms.forEach((room) => { // <- 2
+      const userInRoom = room.players.find((player) => player.id === socket.id); // <- 3
+
+      if (userInRoom) {
+        if (room.players.length < 2) {
+          // if there's only 1 player in the room, close it and exit.
+          rooms.delete(room.roomId);
+          return;
+        }
+
+        socket.to(room.roomId).emit("playerDisconnected", userInRoom); // <- 4
+      }
+    });
+  });
 });
 
 server.listen(port, () => {

@@ -71,6 +71,18 @@ const Game = ({ players, room, orientation, cleanup }) => {
     return true;
   }
 
+  useEffect(() => {
+    socket.on("move", (move) => {
+      makeAMove(move); //
+    });
+  }, [makeAMove]);
+
+  useEffect(() => {
+    socket.on('playerDisconnected', (player) => {
+      setOver(`${player.username} has disconnected`); // set game over
+    });
+  }, []);
+
   function resetBoard() {
     chess.reset();
     setFen(Chess.DEFAULT_POSITION);
@@ -110,7 +122,7 @@ const Game = ({ players, room, orientation, cleanup }) => {
   return (
     <>
       <div class="board">
-        <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} />
+        <Chessboard class="chessboard" position={fen} onPieceDrop={onDrop} boardOrientation={orientation}/>
         <div class="moves-container">
           <MovesHistory moves={chess.history()} />
         </div>
