@@ -1,1 +1,1 @@
-# ChessClone
+# ChessScript
